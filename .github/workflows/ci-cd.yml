@@ -103,12 +103,15 @@ jobs:
       # ---------------------------- Generating and pushing the image
       - name: Build Docker Image
         run: |
-          IMAGE_NAME=ghcr.io/${{ github.repository }}/fastapi-gitops-starter
+          # Use 'tr' to convert your repo name to lowercase for Docker
+          REPO_LOWER=$(echo "${{ github.repository }}" | tr '[:upper:]' '[:lower:]')
+          IMAGE_NAME=ghcr.io/${REPO_LOWER}/fastapi-gitops-starter
 
           if [ "${GITHUB_EVENT_NAME}" = "release" ]; then
             TAG=${GITHUB_REF_NAME}
           else
             TAG=latest
           fi
+
           docker build -t $IMAGE_NAME:$TAG ./docker
           docker push $IMAGE_NAME:$TAG
