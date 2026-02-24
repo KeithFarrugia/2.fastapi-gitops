@@ -103,7 +103,6 @@ jobs:
       # ---------------------------- Generating and pushing the image
       - name: Build Docker Image
         run: |
-          # Use 'tr' to convert your repo name to lowercase for Docker
           REPO_LOWER=$(echo "${{ github.repository }}" | tr '[:upper:]' '[:lower:]')
           IMAGE_NAME=ghcr.io/${REPO_LOWER}/fastapi-gitops-starter
 
@@ -113,5 +112,5 @@ jobs:
             TAG=latest
           fi
 
-          docker build -t $IMAGE_NAME:$TAG ./docker
+          docker build -t $IMAGE_NAME:$TAG -f ./docker/Dockerfile .
           docker push $IMAGE_NAME:$TAG
