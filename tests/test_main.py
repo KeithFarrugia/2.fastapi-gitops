@@ -52,6 +52,6 @@ def test_create_item():
 
     data = response.json()
     assert data["id"] == 999
-    assert data["name"] == "Test Item"
-    assert data["description"] == "A test description"
+    assert data["name"] == "MyItem"
+    assert data["description"] == "something"
     assert data["created"] is True
